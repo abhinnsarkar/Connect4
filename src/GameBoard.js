@@ -636,18 +636,51 @@ export class GameBoard {
                 
                 let otherPlayerWinPotential=this.rowAboveIsPotentialWinnerForOtherPlayer(ctx,lastSlot.physicalRow,lastSlot.physicalCol,currPlayerColor);    
                 let selfWinPotential=this.selfWinPotential(ctx,lastSlot.physicalRow,lastSlot.physicalCol,currPlayerColor);
+                let blockPotential = this.blockOtherPlayerWin(ctx,lastSlot.physicalRow,lastSlot.physicalCol,currPlayerColor);
                 
                 if (selfWinPotential) {
                     hlColor=gameColors.winningColor;
                 }
-                else if (otherPlayerWinPotential) {
+                if (otherPlayerWinPotential) {
                     hlColor=gameColors.dangerColor;
+                }
+
+                if(blockPotential){
+                    hlColor = gameColors.blockColor;
+                }
+
+                if(selfWinPotential && blockPotential){
+                    hlColor = gameColors.winningColor;
                 }
 
                 emptySlot.highlight(ctx,globals.slotLineWidth,hlColor);
             }
 
         })
+    }
+
+    blockOtherPlayerWin(ctx,physicalRow,physicalCol,currPlayerColor){
+        
+        let potentialBlock=false;
+        
+        let colIndex = physicalCol-1;
+        let rowIndex = physicalRow-1;
+
+        let otherPlayerColor;
+
+        if(currPlayerColor == gameColors.player1Color){
+            otherPlayerColor = gameColors.player2Color;
+        }
+
+        if(currPlayerColor == gameColors.player2Color){
+            otherPlayerColor = gameColors.player1Color;
+        }
+        if(this.winnerLogic(colIndex,rowIndex,otherPlayerColor,false)){
+            potentialBlock = true;
+        }
+        return(potentialBlock);
+
+
     }
 
     /**
