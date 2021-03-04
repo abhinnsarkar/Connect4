@@ -12,7 +12,8 @@ export const colors = {
   Yellow : '#FFF550',
   Purple : '#67097A',
   Orange : '#FF9100',
-  Blue : "#2C15A2"
+  Blue : "#2C15A2",
+  Pink : "#FF00C4"
 
 }
 
@@ -33,9 +34,10 @@ export const gameColors = {
   slotColor : colors.Grey,
   colHighlightColor : colors.White,
   trayHighlightColor : colors.White,
-  hintColor : colors.Purple,
-  dangerColor : colors.Green,
-  winningColor : colors.Yellow
+  hintColor : colors.Green,
+  dangerColor : colors.Purple,
+  winningColor : colors.Yellow,
+  blockColor : colors.Pink
 
 }
 
