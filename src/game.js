@@ -72,7 +72,8 @@ const messages = {
     gameBoardFull : "Sorry! Game Over! You're out of coins...",
     whatDoesPurpleMean : "Purple Box around slot means you can play here",
     whatDoesYellowMean : "Play In Yellow Box To Win",
-    whatDoesGreenMean : "Green Box Means -->> DANGER ZONE DO NOT PLAY!!!"
+    whatDoesGreenMean : "Green Box Means -->> DANGER ZONE DO NOT PLAY!!!",
+    hintBoxMessage : "Hints"
  
 }
 
@@ -526,17 +527,18 @@ function showHintLegend(){
 
     let popup=document.getElementById(popupId);
 
-    let purpleMessage=document.getElementById("whatDoesPurpleMean");
-    purpleMessage.innerHTML=whatDoesPurpleMean;
+    // let purpleMessage=document.getElementById("whatDoesPurpleMean");
+    // purpleMessage.innerHTML=whatDoesPurpleMean;
     
 
-    let yellowMessage=document.getElementById("whatDoesYellowMean");
-    yellowMessage.innerHTML=whatDoesYellowMean;
+    // let yellowMessage=document.getElementById("whatDoesYellowMean");
+    // yellowMessage.innerHTML=whatDoesYellowMean;
 
-    let greenMessage=document.getElementById("whatDoesGreenMean");
-    greenMessage.innerHTML=whatDoesGreenMean;
+    // let greenMessage=document.getElementById("whatDoesGreenMean");
+    // greenMessage.innerHTML=whatDoesGreenMean;
     
-    
+    let hintMessage=document.getElementById("hintBoxMessage");
+    hintMessage.innerHTML=messages.hintBoxMessage;
 
     popup.style.display="block";
 
