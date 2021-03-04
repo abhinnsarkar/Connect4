@@ -451,6 +451,7 @@ function hintPressed(){
 function hintReleased(){
     
     closeHintLegend();
+    // closePopup("hintBox");
     gameBoard.hideHint(ctx);
     gameBoard.highlightPlayerCol(ctx,playerCoinCol);
 
@@ -511,56 +512,24 @@ function closePopup(popupId) {
 }
 
 function showHintLegend(){
-    // showPopup(popups.hintBox,messages.hintBox);
-
-
-
-
-    let popupId = popups.hintBox;
     
-    let whatDoesPurpleMean = messages.whatDoesPurpleMean;
-    let whatDoesYellowMean = messages.whatDoesYellowMean;
-    let whatDoesGreenMean = messages.whatDoesGreenMean;
-
-
-
+    let popupId = popups.hintBox;
 
     let popup=document.getElementById(popupId);
-
-    // let purpleMessage=document.getElementById("whatDoesPurpleMean");
-    // purpleMessage.innerHTML=whatDoesPurpleMean;
-    
-
-    // let yellowMessage=document.getElementById("whatDoesYellowMean");
-    // yellowMessage.innerHTML=whatDoesYellowMean;
-
-    // let greenMessage=document.getElementById("whatDoesGreenMean");
-    // greenMessage.innerHTML=whatDoesGreenMean;
-    
     let hintMessage=document.getElementById("hintBoxMessage");
     hintMessage.innerHTML=messages.hintBoxMessage;
 
     popup.style.display="block";
 
+    // showPopup("hintBox","Hints");
 
-
-    
-    // let popup=document.get("HowToPlay");
-
-
-    // let popupMessageId=popupId+"Message";
-    // let popupMessage=document.getElementById(popupMessageId);
-    // popupMessage.innerHTML=message;
-
-
-    
-
-    // popup.style.display="block";
 }
 
 function closeHintLegend(){
+    
     let popupId = popups.hintBox;
     let popup=document.getElementById(popupId);
     popup.style.display="none";
+    // closePopup(popups.hintBox);
 
 }
