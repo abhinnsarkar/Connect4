@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+  <!-- <title input type="image" src="Images/blueCoin.png"></title> -->
+  <title>Connect 4</title>
+  <link rel = "icon" href =  
+"Images/titleBarIcon.png" 
+        type = "image/x-icon" width = 15px height=5px>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <style>
+
+    .Header {
+      text-align: center;
+      color: white;
+    }
+
+    body {
+      font-family:'Courier New', Courier, monospace;
+      background: rgb(0, 0, 0);
+    }
+
+    .player1HasWon {
+      display: none;
+      position: fixed;
+      z-index: 1;
+      padding-top:0% ;
+      padding-left: 0%;
+      width: 30%;
+      height: 100%;
+      overflow: auto;
+      }
+    .player1HasWon-content {
+      background-color: #000000;
+      margin: auto;
+      text-align: center;
+      color: white;
+      padding: 1%;
+      border: 1px solid rgb(250, 250, 250);
+      width: 69.75%;
+    }
+
+    .player2HasWon {
+      display: none;
+      position: fixed;
+      z-index: 1;
+      padding-top:0% ;
+      padding-left: 0%;
+      width: 30%;
+      height: 100%;
+      overflow: auto;
+      }
+    .player2HasWon-content {
+      background-color: #000000;
+      margin: auto;
+      text-align: center;
+      color: white;
+      padding: 1%;
+      border: 1px solid rgb(250, 250, 250);
+      width: 69.75%;
+    }
+
+    .errorBox {
+      display: none;
+      position: fixed;
+      z-index: 1;
+      padding-top: 17%;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background-color: rgb(0, 0, 0, 0.5); /* Black w/ opacity */
+      border: white;
+      }
+    .errorBoxBox-content {
+      background-color: #000000;
+      margin: auto;
+      text-align: center;
+      color: white;
+      padding: 1%;
+      border: 1px solid #888;
+      width: 69.75%;
+    }
+    .closeErrorBox {
+      color: #ffffff;
+      float:center;
+      font-size: 100px;
+      font-weight: bold;
+    }
+    .closeErrorBox:hover,
+    .closeErrorBox:focus {
+      color: rgb(250, 250, 250);
+      text-decoration-color: white;
+      cursor: pointer;
+    }
+
+
+
+    .hintBox {
+      display: none;
+      position: fixed;
+      z-index: 1;
+      padding-top:0% ;
+      padding-left: 0%;
+      width: 30%;
+      height: 100%;
+      overflow: auto;
+      }
+    .hintBox-content {
+      background-color: #000000;
+      margin: auto;
+      text-align: center;
+      color: white;
+      padding: 1%;
+      border: 10px solid rgb(250, 250, 250);
+      width: 69.75%;
+    }
+
+    .hint{
+      position: relative;
+      display: inline-block;
+    }
+    .hint .hintHowTo {
+      visibility: hidden;
+      width: 120px;
+      background-color: #555;
+      color: #fff;
+      text-align: center;
+      border-radius: 6px;
+      padding: 2px 0;
+      position: absolute;
+      z-index: 1;
+      bottom: 125%;
+      left: 57%;
+      margin-left: -60px;
+      opacity: 0;
+      transition: opacity 1s;
+    }
+    .hint .hintHowTo::after {
+      content: "";
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      margin-left: -5px;
+      border-width: 5px;
+      border-style: solid;
+      border-color: #555 transparent transparent transparent;
+    }
+    .hint:hover .hintHowTo {
+      visibility: visible;
+      opacity: 1;
+      /* showHintLegend(); */
+    }
+
+    .leftArrow{
+      position: relative;
+      display: inline-block;
+    }
+    .leftArrow .leftArrowHowTo {
+      visibility: hidden;
+      width: 120px;
+      background-color: #555;
+      color: #fff;
+      text-align: center;
+      border-radius: 6px;
+      padding: 2px 0;
+      position: absolute;
+      z-index: 1;
+      bottom: 125%;
+      left: 50%;
+      margin-left: -60px;
+      opacity: 0;
+      transition: opacity 1s;
+    }
+    .leftArrow .leftArrowHowTo::after {
+      content: "";
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      margin-left: -5px;
+      border-width: 5px;
+      border-style: solid;
+      border-color: #555 transparent transparent transparent;
+    }
+    .leftArrow:hover .leftArrowHowTo {
+      visibility: visible;
+      opacity: 1;
+    }
+
+    .playArrow{
+      position: relative;
+      display: inline-block;
+    }
+    .playArrow .playArrowHowTo {
+      visibility: hidden;
+      width: 120px;
+      background-color: #555;
+      color: #fff;
+      text-align: center;
+      border-radius: 6px;
+      padding: 2px 0;
+      position: absolute;
+      z-index: 1;
+      bottom: 125%;
+      left: 50%;
+      margin-left: -60px;
+      opacity: 0;
+      transition: opacity 1s;
+    }
+    .playArrow .playArrowHowTo::after {
+      content: "";
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      margin-left: -5px;
+      border-width: 5px;
+      border-style: solid;
+      border-color: #555 transparent transparent transparent;
+    }
+    .playArrow:hover .playArrowHowTo {
+      visibility: visible;
+      opacity: 1;
+    }
+
+    .rightArrow{
+      position: relative;
+      display: inline-block;
+    }
+    .rightArrow .rightArrowHowTo {
+      visibility: hidden;
+      width: 120px;
+      background-color: #555;
+      color: #fff;
+      text-align: center;
+      border-radius: 6px;
+      padding: 2px 0;
+      position: absolute;
+      z-index: 1;
+      bottom: 125%;
+      left: 50%;
+      margin-left: -60px;
+      opacity: 0;
+      transition: opacity 1s;
+    }
+    .rightArrow .rightArrowHowTo::after {
+      content: "";
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      margin-left: -5px;
+      border-width: 5px;
+      border-style: solid;
+      border-color: #555 transparent transparent transparent;
+    }
+    .rightArrow:hover .rightArrowHowTo {
+      visibility: visible;
+      opacity: 1;
+    }
+
+    .newGame{
+      position: relative;
+      display: inline-block;
+    }
+    .newGame .newGameHowTo {
+      visibility: hidden;
+      width: 120px;
+      background-color: #555;
+      color: #fff;
+      text-align: center;
+      border-radius: 6px;
+      padding: 2px 0;
+      position: absolute;
+      z-index: 1;
+      bottom: 125%;
+      left: 50%;
+      margin-left: -60px;
+      opacity: 0;
+      transition: opacity 1s;
+    }
+    .newGame .newGameHowTo::after {
+      content: "";
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      margin-left: -5px;
+      border-width: 5px;
+      border-style: solid;
+      border-color: #555 transparent transparent transparent;
+    }
+    .newGame:hover .newGameHowTo {
+      visibility: visible;
+      opacity: 1;
+    }
+
+  </style>
+
+  <script src="https://cdn.jsdelivr.net/npm/p5@1.0.0/lib/p5.min.js"></script>
+    
+  <meta charset="utf-8"/>
+
+  </head>
+
+  <body>
+    
+    <div id="Header" class="Header">
+      <font size="85"> Connect 4</font>	
+    </div>
+  
+  <div id="errorBox" class="errorBox">
+    <div class="errorBoxBox-content">
+      <span class="closeErrorBox">&times;</span>
+      <p id="errorBoxMessage"></p>
+    </div>
+  </div>
+
+
+  
+  <div id="hintBox" class="hintBox">
+    <div class="hintBox-content">
+      <!-- <span class="closeHintBox">&times;</span> -->
+      <h1>Hints</h1>
+      <h1>---------------</h1>
+      <p id="whatDoesPurpleMean"></p>
+      
+      <input type="image" src="Images/whatDoesPurpleMean.png" width="175px" height="175px">
+      
+      <p id="whatDoesYellowMean"></p>
+      <input type="image" src="Images/whatDoesYellowMean.png" width="175px" height="175px">
+
+      <p id="whatDoesGreenMean"></p>
+      <input type="image" src="Images/whatDoesGreenMean.png" width="175px" height="175px">
+    </div>
+  </div>
+
+  <div id="player1HasWon" class="player1HasWon">
+    <div class="player1HasWon-content">
+      <p id="player1HasWonMessage">Congrats! Player 1 has won!!!</p>
+      <center>
+        <input type="image" src="Images/redCoin.png" width=15% height=15% disabled="true">        
+        <input type="image" src="Images/redCoin.png" width=15% height=15% disabled="true">        
+        <input type="image" src="Images/redCoin.png" width=15% height=15% disabled="true">        
+        <input type="image" src="Images/redCoin.png" width=15% height=15% disabled="true">        
+        <input type="image" src="Images/redCoin.png" width=15% height=15% disabled="true">        
+        <input type="image" src="Images/redCoin.png" width=15% height=15% disabled="true">        
+        <input type="image" src="Images/redCoin.png" width=15% height=15% disabled="true">        
+        <input type="image" src="Images/redCoin.png" width=15% height=15% disabled="true">        
+        <input type="image" src="Images/redCoin.png" width=15% height=15% disabled="true">        
+        <input type="image" src="Images/redCoin.png" width=15% height=15% disabled="true">        
+        <input type="image" src="Images/redCoin.png" width=15% height=15% disabled="true">        
+        <input type="image" src="Images/redCoin.png" width=15% height=15% disabled="true">        
+        <input type="image" src="Images/redCoin.png" width=15% height=15% disabled="true">        
+        <input type="image" src="Images/redCoin.png" width=15% height=15% disabled="true">        
+        <input type="image" src="Images/redCoin.png" width=15% height=15% disabled="true">        
+      </center>
+      <center>
+        
+        <input type="image" src="Images/newGame.png" width=400px height=400px onClick="location.href=location.href">
+
+      </center>
+      <center>
+        <input type="image" src="Images/redCoin.png" width=15% height=15% disabled="true">        
+        <input type="image" src="Images/redCoin.png" width=15% height=15% disabled="true">        
+        <input type="image" src="Images/redCoin.png" width=15% height=15% disabled="true">        
+        <input type="image" src="Images/redCoin.png" width=15% height=15% disabled="true">        
+        <input type="image" src="Images/redCoin.png" width=15% height=15% disabled="true">        
+        <input type="image" src="Images/redCoin.png" width=15% height=15% disabled="true">        
+        <input type="image" src="Images/redCoin.png" width=15% height=15% disabled="true">        
+        <input type="image" src="Images/redCoin.png" width=15% height=15% disabled="true">        
+        <input type="image" src="Images/redCoin.png" width=15% height=15% disabled="true">        
+        <input type="image" src="Images/redCoin.png" width=15% height=15% disabled="true">        
+        <input type="image" src="Images/redCoin.png" width=15% height=15% disabled="true">        
+        <input type="image" src="Images/redCoin.png" width=15% height=15% disabled="true">        
+        <input type="image" src="Images/redCoin.png" width=15% height=15% disabled="true">        
+        <input type="image" src="Images/redCoin.png" width=15% height=15% disabled="true">        
+        <input type="image" src="Images/redCoin.png" width=15% height=15% disabled="true">        
+      </center> 
+    </div>
+  </div>
+  <div id="player2HasWon" class="player2HasWon">
+    <div class="player2HasWon-content">
+      <p id="player2HasWonMessage">Congrats! Player 2 has won!!!</p>
+      <center>
+        <input type="image" src="Images/blueCoin.png" width=15% height=15% disabled="true">        
+        <input type="image" src="Images/blueCoin.png" width=15% height=15% disabled="true">        
+        <input type="image" src="Images/blueCoin.png" width=15% height=15% disabled="true">        
+        <input type="image" src="Images/blueCoin.png" width=15% height=15% disabled="true">        
+        <input type="image" src="Images/blueCoin.png" width=15% height=15% disabled="true">        
+        <input type="image" src="Images/blueCoin.png" width=15% height=15% disabled="true">        
+        <input type="image" src="Images/blueCoin.png" width=15% height=15% disabled="true">        
+        <input type="image" src="Images/blueCoin.png" width=15% height=15% disabled="true">        
+        <input type="image" src="Images/blueCoin.png" width=15% height=15% disabled="true">        
+        <input type="image" src="Images/blueCoin.png" width=15% height=15% disabled="true">        
+        <input type="image" src="Images/blueCoin.png" width=15% height=15% disabled="true">        
+        <input type="image" src="Images/blueCoin.png" width=15% height=15% disabled="true">        
+        <input type="image" src="Images/blueCoin.png" width=15% height=15% disabled="true">        
+        <input type="image" src="Images/blueCoin.png" width=15% height=15% disabled="true">        
+        <input type="image" src="Images/blueCoin.png" width=15% height=15% disabled="true">        
+      </center>
+      <center>
+        <input type="image" src="Images/newGame.png" width=400px height=400px onClick="location.href=location.href">
+        
+      </center>
+      <center>
+        <input type="image" src="Images/blueCoin.png" width=15% height=15% disabled="true">        
+        <input type="image" src="Images/blueCoin.png" width=15% height=15% disabled="true">        
+        <input type="image" src="Images/blueCoin.png" width=15% height=15% disabled="true">        
+        <input type="image" src="Images/blueCoin.png" width=15% height=15% disabled="true">        
+        <input type="image" src="Images/blueCoin.png" width=15% height=15% disabled="true">        
+        <input type="image" src="Images/blueCoin.png" width=15% height=15% disabled="true">        
+        <input type="image" src="Images/blueCoin.png" width=15% height=15% disabled="true">        
+        <input type="image" src="Images/blueCoin.png" width=15% height=15% disabled="true">        
+        <input type="image" src="Images/blueCoin.png" width=15% height=15% disabled="true">        
+        <input type="image" src="Images/blueCoin.png" width=15% height=15% disabled="true">        
+        <input type="image" src="Images/blueCoin.png" width=15% height=15% disabled="true">        
+        <input type="image" src="Images/blueCoin.png" width=15% height=15% disabled="true">        
+        <input type="image" src="Images/blueCoin.png" width=15% height=15% disabled="true">        
+        <input type="image" src="Images/blueCoin.png" width=15% height=15% disabled="true">        
+        <input type="image" src="Images/blueCoin.png" width=15% height=15% disabled="true">        
+      </center>
+    </div>
+  </div>
+  
+  <div class="Game">
+    <div class="Canvas">
+      <center>
+        <canvas id="gameScreen" name="gameScreen" width="1900px" height="750px"></canvas> 
+      </center>      
+    </div>
+
+    <div class="GameControls">
+    <center>
+  
+      <div id="hint" class="hint">
+        <span class="hintHowTo">Help</span>
+        
+        <input type="image" src="Images/hintBtn.png" id="hintBtn" name="hintBtn" width="100px" height="100px">
+      </div>
+     
+      <div id="leftArrow" class="leftArrow">
+        <span class="leftArrowHowTo">Move Left</span>
+        <input type="image" src="Images/leftArrow.png" id="leftArrow" name="leftArrow" width="100px" height="100px">
+      </div>
+
+      <div id="playArrow" class="playArrow">
+        <span class="playArrowHowTo">Shoot</span>
+        <input type="image" src="Images/playArrow.png" id="playArrow" name="playArrow" width="100px" height="100px">
+      </div>
+
+      <div id="rightArrow" class="rightArrow">
+        <span class="rightArrowHowTo">Move Right</span>
+        <input type="image" src="Images/rightArrow.png" id="rightArrow" name="rightArrow" width="100px" height="100px">
+      </div>
+      
+      <div id="newGame" class="newGame">
+        <span class="newGameHowTo">New Game</span>
+        <input type="image" src="Images/newGame.png" id="newGame" name="newGame" width="100px" height="100px" onClick="location.href=location.href">
+      </div>
+      
+    </center>
+    </div>      
+  </div>
+
+  <script type="module" src="./src/game.js"></script>
+  
+</body>
+
+  </html>
