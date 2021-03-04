@@ -623,7 +623,7 @@ export class GameBoard {
 
         var lastSlot;
         this.columns.forEach((column, indx) => {
-            // let emptySlot=this.getLastSlot(ctx,indx+1).emptySlot;
+            
             lastSlot = this.getLastSlot(ctx,indx+1);
             let emptySlot = lastSlot.emptySlot;
             if (emptySlot==null) {
@@ -631,10 +631,9 @@ export class GameBoard {
                 //its full
             }
             else {
-                // emptySlot.highlight(ctx,globals.slotLineWidth,hlColor);
 
                 let hlColor = gameColors.hintColor;
-                // if (this.rowAboveIsPotentialWinnerForOtherPlayer(lastSlot.physicalRow,lastSlot.physicalCol,currentPlayer)) {
+                
                 let otherPlayerWinPotential=this.rowAboveIsPotentialWinnerForOtherPlayer(ctx,lastSlot.physicalRow,lastSlot.physicalCol,currPlayerColor);    
                 let selfWinPotential=this.selfWinPotential(ctx,lastSlot.physicalRow,lastSlot.physicalCol,currPlayerColor);
                 
@@ -644,10 +643,7 @@ export class GameBoard {
                 else if (otherPlayerWinPotential) {
                     hlColor=gameColors.dangerColor;
                 }
-                
-                // if (otherPlayerWinPotential) {
-                //     hlColor=gameColors.dangerColor;
-                // }
+
                 emptySlot.highlight(ctx,globals.slotLineWidth,hlColor);
             }
 
@@ -670,10 +666,6 @@ export class GameBoard {
             let colIndex = physicalCol-1;
             let rowIndex = abovePhysicalRow-1;
     
-            // var currSlot = this.columns[colIndex][rowIndex];
-            // console.log("indexRow is " + rowIndex);
-            // console.log("indexCol is " + colIndex);
-            // var currSlot = this.columns[colIndex][rowIndex];
             var currColor = currPlayerColor;
             var aboveRowColor,aboveRowWinnerFound;
     
@@ -698,8 +690,6 @@ export class GameBoard {
         return(potentialWinner);
 
     }
-
-
 
 /**
      * Detects whether the current row is a potential winner for the current player
