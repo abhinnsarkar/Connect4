@@ -660,11 +660,11 @@ export class GameBoard {
     }
 
     blockOtherPlayerWin(ctx,physicalRow,physicalCol,currPlayerColor){
+
+        // let potentialBlock=false;
         
-        let potentialBlock=false;
-        
-        let colIndex = physicalCol-1;
-        let rowIndex = physicalRow-1;
+        // let colIndex = physicalCol-1;
+        // let rowIndex = physicalRow-1;
 
         let otherPlayerColor;
 
@@ -675,12 +675,16 @@ export class GameBoard {
         if(currPlayerColor == gameColors.player2Color){
             otherPlayerColor = gameColors.player1Color;
         }
-        if(this.winnerLogic(colIndex,rowIndex,otherPlayerColor,false)){
-            potentialBlock = true;
-        }
-        return(potentialBlock);
 
+        // if(this.winnerLogic(colIndex,rowIndex,otherPlayerColor,false)){
+        //     potentialBlock = true;
+        // }
+        // return(potentialBlock);
 
+    // using function to find a win for the other color
+    var potentialBlock = this.selfWinPotential(ctx,physicalRow,physicalCol,otherPlayerColor);
+
+    return (potentialBlock);
     }
 
     /**
