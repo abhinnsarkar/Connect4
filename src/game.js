@@ -1,9 +1,10 @@
+
 import { GameBoard } from './GameBoard.js';
 import { gameColors, globals, colors} from './Globals.js';
 import { Coin } from './Coin.js';
 import { CoinTray } from './CoinTray.js';
 import { playVictoryTone , playErrorTone , playCoinSound } from './Sounds.js';
-
+var onlyHintsAreEnabled = false;
 let canvas=document.getElementById("gameScreen");
 let ctx=canvas.getContext("2d");
 
@@ -343,15 +344,18 @@ function moveCoin(direction){
 
 function leftClicked(){
 
-    if (controlsEnabled) {
+    if(!onlyHintsAreEnabled){
+        if (controlsEnabled) {
         
-        if(playerCoinCol == 1){
-            showPopup(popups.errorBox,messages.tooFarLeft);
-        }
-        else{
-            moveCoin(directions.left);
-        }
+            if(playerCoinCol == 1){
+                showPopup(popups.errorBox,messages.tooFarLeft);
+            }
+            else{
+                moveCoin(directions.left);
+            }
+        }   
     }
+    
 }
 
 // function rightArrowClicked(){
@@ -363,17 +367,18 @@ function rightClicked(){
     //     //do nothing
     // }
 
-    if (controlsEnabled) {
-        if(playerCoinCol == globals.num_Of_Cols){
-            showPopup(popups.errorBox,messages.tooFarRight);
+    if(!onlyHintsAreEnabled){
+        if (controlsEnabled) {
+            if(playerCoinCol == globals.num_Of_Cols){
+                showPopup(popups.errorBox,messages.tooFarRight);
+            }
+            else{
+                
+                moveCoin(directions.right);
+            }
+     
         }
-        else{
-            
-            moveCoin(directions.right);
-        }
- 
-    }
-    
+    }    
 }
 
 // function playArrowClicked(){
@@ -382,47 +387,50 @@ function rightClicked(){
 
 function playClicked(){
 
-    if (gameBoard.dropCoin(playerCoin, ctx, playerCoinCol)) {
+    if(!onlyHintsAreEnabled){
+        if (gameBoard.dropCoin(playerCoin, ctx, playerCoinCol)) {
         
-        gameBoard.unHighlightPlayerCol(ctx,playerCoinCol);
-        //enableMoving();
-        
-        if(gameBoard.checkIfWinnerFound()){
-    
-            // disableMovingForGameOver();
-            disableMoving();
+            gameBoard.unHighlightPlayerCol(ctx,playerCoinCol);
+            //enableMoving();
             
-            var winner;
-
-            if (color == gameColors.player1Color){ // that means player 1 just played
-
+            if(gameBoard.checkIfWinnerFound()){
+        
+                // disableMovingForGameOver();
+                disableMoving();
                 
-                winner="player1";
-                // showWinnerMessage = messages.player1HasWon;
-                tray1.removeCoin(ctx)
-                
+                var winner;
+    
+                if (color == gameColors.player1Color){ // that means player 1 just played
+    
+                    
+                    winner="player1";
+                    // showWinnerMessage = messages.player1HasWon;
+                    tray1.removeCoin(ctx)
+                    
+                }
+                else{ // that means player 2 just played
+                    winner="player2";
+                    // showWinnerMessage = messages.player2HasWon;
+                    tray2.removeCoin(ctx)
+                    //tray2.highlight(ctx);
+                }
+    
+                showWinner(winner);
+                gameBoard.highlightWin(ctx);
+        
             }
-            else{ // that means player 2 just played
-                winner="player2";
-                // showWinnerMessage = messages.player2HasWon;
-                tray2.removeCoin(ctx)
-                //tray2.highlight(ctx);
+            else {
+                createNewPlayerCoin();
             }
-
-            showWinner(winner);
-            gameBoard.highlightWin(ctx);
     
         }
         else {
-            createNewPlayerCoin();
+            playErrorTone();
+            // showErrorBox(messages.colError);
+            showPopup(popups.errorBox,messages.colError);
         }
+    }
 
-    }
-    else {
-        playErrorTone();
-        // showErrorBox(messages.colError);
-        showPopup(popups.errorBox,messages.colError);
-    }
 }
 
 
@@ -442,6 +450,8 @@ function disableMoving(){
 function hintPressed(){
     
     showHintLegend();
+    onlyHintsAreEnabled = true;
+    // disableMoving();
     gameBoard.unHighlightPlayerCol(ctx,playerCoinCol);
     gameBoard.showHint(ctx,color);
 
@@ -452,6 +462,7 @@ function hintReleased(){
     
     closeHintLegend();
     // closePopup("hintBox");
+    onlyHintsAreEnabled = false;
     gameBoard.hideHint(ctx);
     gameBoard.highlightPlayerCol(ctx,playerCoinCol);
 
