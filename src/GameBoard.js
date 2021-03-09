@@ -622,6 +622,7 @@ export class GameBoard {
 
 
         var lastSlot;
+        
         this.columns.forEach((column, indx) => {
             
             lastSlot = this.getLastSlot(ctx,indx+1);
@@ -632,7 +633,7 @@ export class GameBoard {
             }
             else {
 
-                let hlColor = gameColors.hintColor;
+                let hlColor = gameColors.safeToPlayColor;
                 
                 let otherPlayerWinPotential=this.rowAboveIsPotentialWinnerForOtherPlayer(ctx,lastSlot.physicalRow,lastSlot.physicalCol,currPlayerColor);    
                 let selfWinPotential=this.selfWinPotential(ctx,lastSlot.physicalRow,lastSlot.physicalCol,currPlayerColor);
@@ -648,7 +649,7 @@ export class GameBoard {
                 if(blockPotential){
                     hlColor = gameColors.blockColor;
                 }
-
+                
                 if(selfWinPotential && blockPotential){
                     hlColor = gameColors.winningColor;
                 }
@@ -660,11 +661,6 @@ export class GameBoard {
     }
 
     blockOtherPlayerWin(ctx,physicalRow,physicalCol,currPlayerColor){
-        
-        let potentialBlock=false;
-        
-        let colIndex = physicalCol-1;
-        let rowIndex = physicalRow-1;
 
         let otherPlayerColor;
 
@@ -675,11 +671,11 @@ export class GameBoard {
         if(currPlayerColor == gameColors.player2Color){
             otherPlayerColor = gameColors.player1Color;
         }
-        if(this.winnerLogic(colIndex,rowIndex,otherPlayerColor,false)){
-            potentialBlock = true;
-        }
-        return(potentialBlock);
 
+    // using function to find a win for the other color
+    var potentialBlock = this.selfWinPotential(ctx,physicalRow,physicalCol,otherPlayerColor);
+
+    return (potentialBlock);
 
     }
 
