@@ -72,6 +72,47 @@ const messages = {
  
 }
 
+
+
+
+
+function resizeGame() {
+
+    var gameCanvas = document.getElementById('Canvas');
+    var widthToHeight = 5/2;
+    
+    var newCanvasWidth = window.innerWidth;
+    var newCanvasHeight = window.innerHeight;
+    
+    var newCanvasWidthToHeight = (newCanvasWidth / newCanvasHeight);
+    
+    if (newCanvasWidthToHeight > widthToHeight) {
+        // window width is too wide relative to desired game width
+        newCanvasWidth = newCanvasHeight * widthToHeight;
+        gameCanvas.style.height = newCanvasHeight + 'px';
+        gameCanvas.style.width = newCanvasWidth + 'px';
+    } else { // window height is too high relative to desired game height
+        newCanvasHeight = newCanvasWidth / widthToHeight;
+        gameCanvas.style.width = newCanvasWidth + 'px';
+        gameCanvas.style.height = newCanvasHeight + 'px';
+    }
+    
+    gameCanvas.style.marginTop = (-newCanvasHeight / 2) + 'px';
+    gameCanvas.style.marginLeft = (-newCanvasWidth / 2) + 'px';
+    
+    var gameScreen = document.getElementById('gameScreen');
+    gameScreen.width = newCanvasWidth;
+    gameScreen.height = newCanvasHeight;
+
+}
+
+
+
+
+
+
+
+
 // styling canvas with color and position
 function canvasStyling(){
     
@@ -79,6 +120,9 @@ function canvasStyling(){
     
     ctx.canvas.width = 0.99*window.innerWidth;
     ctx.canvas.height = 0.80*window.innerHeight;
+
+    console.log("width is " +ctx.canvas.width );
+    console.log("height is " +ctx.canvas.height );
     
 }
 
@@ -141,6 +185,48 @@ function setupEventHandlers() {
     hintBtn = document.getElementById("hintBtn");
     hintBtn.addEventListener("mousedown", hintPressed);
     hintBtn.addEventListener("mouseup", hintReleased);
+    
+
+    // $(function(){
+    //     resize();
+    // });
+    
+    // $(window).on('resize', function(){
+    //     resize();
+    // });
+    // var hint = document.getElementById("hintBtn");
+    // hint.style.width = "100px";
+    // hint.style.height = "100px";
+
+    // var left = document.getElementById("leftArrow");
+    // left.style.width = "100px";
+    // left.style.height = "100px";
+    
+    // var play = document.getElementById("playArrow");
+    // play.style.width = "100px";
+    // play.style.height = "100px";
+
+    // var right = document.getElementById("rightArrow");
+    // right.style.width = "100px";
+    // right.style.height = "100px";
+
+
+    // var newGameBtn = document.getElementById("newGame");
+    // newGameBtn.style.width = "10px";
+    // newGameBtn.style.height = "10px";
+
+    // var w = newGameBtn.style.width;
+    // var h = newGameBtn.style.height;
+
+
+    // console.log("w is " +newGameBtn.style.width);
+    // console.log("h is " +newGameBtn.style.height);
+    window.addEventListener('resize', resizeGame, false);
+    window.addEventListener('orientationchange', resizeGame, false);
+
+
+
+
     
 }
 
@@ -508,3 +594,23 @@ function closePopup(popupId) {
     enableMoving();
 }
 
+
+
+function resize(){
+    // $(function(){
+    //     resizeCanvas();
+    // });
+    
+    // $(window).on('resize', function(){
+    //     resizeCanvas();
+    // });
+    var canvas = $('#canvas');
+    canvas.css("width", $(window).width());
+    canvas.css("height", $(window).height());
+    // function resizeCanvas()
+    // {
+    //     // var canvas = $('#canvas');
+    //     // canvas.css("width", $(window).width());
+    //     // canvas.css("height", $(window).height());
+    // }
+}
