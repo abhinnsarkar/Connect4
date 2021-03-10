@@ -14,6 +14,8 @@
 
   <style>
 
+
+
     .Header {
       text-align: center;
       color: white;
@@ -295,6 +297,25 @@
       opacity: 1;
     }
 
+    #Canvas {
+      position: absolute;
+      left: 0%;
+      top: 0%;
+    }
+
+    #gameScreen {
+      width: 99%;
+      height: 80%;
+    }
+
+
+
+
+
+
+
+
+
   </style>
 
   <script src="https://cdn.jsdelivr.net/npm/p5@1.0.0/lib/p5.min.js"></script>
@@ -359,7 +380,8 @@
       </center>
       <center>
         
-        <input type="image" src="Images/newGame.png" width=400px height=400px onClick="location.href=location.href">
+        <!-- <input type="image" src="Images/newGame.png" width=400px height=400px onClick="location.href=location.href"> -->
+        <input type="image" src="Images/newGame.png" width=75% height=75% onClick="location.href=location.href">
 
       </center>
       <center>
@@ -426,44 +448,52 @@
   </div>
   
   <div class="Game">
+
     <div class="Canvas">
       <center>
-        <canvas id="gameScreen" name="gameScreen" width="1900px" height="750px"></canvas> 
-      </center>      
-    </div>
+        <!-- <canvas id="gameScreen" name="gameScreen" width="1900px" height="750px"></canvas>  -->
+        <canvas id="gameScreen" name="gameScreen"></canvas> 
 
+      </center>  
+      
+      
     <div class="GameControls">
-    <center>
+      <center>
+    
+        <div id="hint" class="hint">
+          <span class="hintHowTo">Help</span>
+          
+          <input type="image" src="Images/hintBtn.png"  class="hint" id="hintBtn" name="hintBtn" width="100px" height="100px">
+        </div>
+       
+        <div id="leftArrow" class="leftArrow">
+          <span class="leftArrowHowTo">Move Left</span>
+          <!-- <input type="image" src="Images/leftArrow.png" class="left" id="leftArrow" name="leftArrow" width=5% height=13%> -->
+          <input type="image" src="Images/leftArrow.png" class="left" id="leftArrow" name="leftArrow" width="100px" height="100px">
+        </div>
   
-      <div id="hint" class="hint">
-        <span class="hintHowTo">Help</span>
+        <div id="playArrow" class="playArrow">
+          <span class="playArrowHowTo">Shoot</span>
+          <input type="image" src="Images/playArrow.png" class="play" id="playArrow" name="playArrow" width="100px" height="100px">
+        </div>
+  
+        <div id="rightArrow" class="rightArrow">
+          <span class="rightArrowHowTo">Move Right</span>
+          <input type="image" src="Images/rightArrow.png" class="right" id="rightArrow" name="rightArrow" width="100px" height="100px">
+        </div>
         
-        <input type="image" src="Images/hintBtn.png" id="hintBtn" name="hintBtn" width="100px" height="100px">
-      </div>
-     
-      <div id="leftArrow" class="leftArrow">
-        <span class="leftArrowHowTo">Move Left</span>
-        <input type="image" src="Images/leftArrow.png" id="leftArrow" name="leftArrow" width="100px" height="100px">
-      </div>
-
-      <div id="playArrow" class="playArrow">
-        <span class="playArrowHowTo">Shoot</span>
-        <input type="image" src="Images/playArrow.png" id="playArrow" name="playArrow" width="100px" height="100px">
-      </div>
-
-      <div id="rightArrow" class="rightArrow">
-        <span class="rightArrowHowTo">Move Right</span>
-        <input type="image" src="Images/rightArrow.png" id="rightArrow" name="rightArrow" width="100px" height="100px">
-      </div>
-      
-      <div id="newGame" class="newGame">
-        <span class="newGameHowTo">New Game</span>
-        <input type="image" src="Images/newGame.png" id="newGame" name="newGame" width="100px" height="100px" onClick="location.href=location.href">
-      </div>
-      
-    </center>
-    </div>      
-  </div>
+        <div id="newGame" class="newGame">
+          <span class="newGameHowTo">New Game</span>
+          <!-- <button type="button" onClick="location.href=location.href"><img src="Images/newGame.png" class="new" id="newGame"></button> -->
+          <!-- <input type="image" src="Images/newGame.png" class="new" id="newGame" name="newGame" onClick="location.href=location.href"> -->
+          <input type="image" src="Images/newGame.png" class="new" id="newGame" name="newGame" width="100px" height="100px" onClick="location.href=location.href">
+        </div>
+        
+      </center>
+      </div>      
+    </div>
+  
+    </div>
 
   <script type="module" src="./src/game.js"></script>
   

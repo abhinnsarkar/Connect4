@@ -1,4 +1,3 @@
-
 import { GameBoard } from './GameBoard.js';
 import { gameColors, globals, colors} from './Globals.js';
 import { Coin } from './Coin.js';
@@ -42,7 +41,6 @@ const directions = {
     right : "right"
 }
 
-
 var hintBtn;
 
 const INIT_PHYSICAL_COL=4;
@@ -52,11 +50,7 @@ const INIT_PHYSICAL_COL=4;
  */
 var tray1,tray2;
 
-var winnerBox,winnerBoxMessage,showWinnerMessage;
-
-var errorBox,errorBoxMessage;
 var popUp;
-var isKeyDisabled = false;
 
 const popups={
     errorBox:"errorBox",
@@ -82,7 +76,10 @@ const messages = {
 function canvasStyling(){
     
     canvas.style.background = gameColors.gameBackgroundColor;
-
+    
+    ctx.canvas.width = 0.99*window.innerWidth;
+    ctx.canvas.height = 0.80*window.innerHeight;
+    
 }
 
 function gameBoardResizing() {
@@ -97,7 +94,6 @@ function gameBoardResizing() {
     gameBoardWidth = canvas.width - gameLeftMarginPx - gameRightMarginPx;
     gameBoardHeight = canvas.height - gameTopMarginPx - gameBottomMarginPx;
 
-
     //  this will resize the game board and re-draw
     gameBoard.resize(ctx, gameBoardWidth, gameBoardHeight, gameTopMarginPx, gameLeftMarginPx);
 
@@ -108,6 +104,7 @@ function gameBoardResizing() {
  * Creates and draws two cointrays and then fills both with coins 
  */
 function coinTrays(){
+
     let coinTrayWidth = gameLeftMarginPx;
     let coinTrayHeight = canvas.height/3;
 
@@ -135,8 +132,6 @@ function setupEventHandlers() {
     playArrow = document.getElementById("playArrow");
     playArrow.addEventListener("click",playClicked);
     
-    // errorBox = document.getElementsByClassName("closeErrorBox")[0];
-    // errorBox.addEventListener("click", closeErrorBox);
     popUp = document.getElementsByClassName("closeErrorBox")[0];
     popUp.addEventListener("click", function() {
         closePopup(popups.errorBox);
@@ -162,17 +157,14 @@ main(); // call the main functionality
 function main() {
     
     setupEventHandlers(); 
-    
-    
+        
     canvasStyling(); // sets the canvas color
 
     gameBoardResizing(); // this calculates the various margins and block sizes
     coinTrays();
     
-    //playerCoinCol = INIT_PHYSICAL_COL;
-    
     createNewPlayerCoin();
-    // showHowToPlay();
+
 }
 /**
  * switches to a new player coin
@@ -436,9 +428,6 @@ function playClicked(){
 
 function enableMoving() {
     controlsEnabled=true;
-    // isKeyDisabled = false;
-    // arrowsAreDisabled = false;
-    // arrows.forEach(value => document.getElementById(value).disabled=false);
 }
 
 function disableMoving(){
@@ -449,19 +438,17 @@ function disableMoving(){
 
 function hintPressed(){
     
-    showHintLegend();
+    showPopup(popups.hintBox,messages.hintBoxMessage);
+
     onlyHintsAreEnabled = true;
-    // disableMoving();
     gameBoard.unHighlightPlayerCol(ctx,playerCoinCol);
     gameBoard.showHint(ctx,color);
-
     
 }
 
 function hintReleased(){
     
-    closeHintLegend();
-    // closePopup("hintBox");
+    closePopup(popups.hintBox);
     onlyHintsAreEnabled = false;
     gameBoard.hideHint(ctx);
     gameBoard.highlightPlayerCol(ctx,playerCoinCol);
@@ -487,14 +474,17 @@ function removeControls(){
  */
 function showPopup(popupId, message=null) {
 
-    // disable all other controls
-    disableMoving();
-
     // show the popup
-
     let popup=document.getElementById(popupId);
 
+    
+    if(!(popupId == popups.hintBox)){
+       
+        // disable all other controls    
+        disableMoving();
 
+    }
+    
     if (message==null) {
         // do nothing
     }
@@ -502,15 +492,11 @@ function showPopup(popupId, message=null) {
         let popupMessageId=popupId+"Message";
         let popupMessage=document.getElementById(popupMessageId);
         popupMessage.innerHTML=message;
-    }
-
-    
+    }    
 
     popup.style.display="block";
 
 }
-
-
 
 function closePopup(popupId) {
 
@@ -522,25 +508,3 @@ function closePopup(popupId) {
     enableMoving();
 }
 
-function showHintLegend(){
-    
-    let popupId = popups.hintBox;
-
-    let popup=document.getElementById(popupId);
-    let hintMessage=document.getElementById("hintBoxMessage");
-    hintMessage.innerHTML=messages.hintBoxMessage;
-
-    popup.style.display="block";
-
-    // showPopup("hintBox","Hints");
-
-}
-
-function closeHintLegend(){
-    
-    let popupId = popups.hintBox;
-    let popup=document.getElementById(popupId);
-    popup.style.display="none";
-    // closePopup(popups.hintBox);
-
-}

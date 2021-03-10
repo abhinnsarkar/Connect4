@@ -34,7 +34,7 @@ export const gameColors = {
   slotColor : colors.Grey,
   colHighlightColor : colors.White,
   trayHighlightColor : colors.White,
-  hintColor : colors.Green,
+  safeToPlayColor : colors.Green,
   dangerColor : colors.Purple,
   winningColor : colors.Yellow,
   blockColor : colors.Pink
@@ -44,8 +44,8 @@ export const gameColors = {
 export const globals = {
   num_Of_Cols : 7,
   num_Of_Rows : 6,
-  slotLineWidth : 10,
+  slotLineWidth : window.innerWidth/250,
   trayHighlightLineWidth : 5,
   trayUnhighlightLineWidth : 7,
-  winningSlotLineWidth : 20
+  winningSlotLineWidth : window.innerWidth/125
 }

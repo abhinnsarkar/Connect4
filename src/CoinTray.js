@@ -4,7 +4,6 @@ import { Coin } from "./Coin.js";
  * CoinTray class which encapsulates a physical tray of coins to store during the game
  */
 export class CoinTray {
-
     /**
      * 
      * @param {number} x The Left most Coordinate of the Tray
@@ -41,15 +40,11 @@ export class CoinTray {
 
         this.coinsPlayed = 0;
 
-
     }
 
     draw(ctx){
         // ctx.strokeStyle = this.gridColor;
         // ctx.strokeRect(this.topLeft, this.top, this.width, this.width);
-
-
-
     }
 
     fillAllCoins(ctx) {
@@ -60,8 +55,6 @@ export class CoinTray {
         let sqSizeBasedOnWidth = this.width / this.totalCols;
         let sqSizeBasedOnHeight = this.height / this.totalRows;
 
-
-
         if (sqSizeBasedOnWidth > sqSizeBasedOnHeight) { // this means we need to base our square on Height (smaller of the two)
 
             this.squareSize = sqSizeBasedOnHeight;
@@ -69,7 +62,6 @@ export class CoinTray {
         else {
             this.squareSize = sqSizeBasedOnWidth;
         }
-
 
         // draw the tray squares,  and coins
         for (var row=0;row<this.totalRows;row++) {
@@ -85,7 +77,6 @@ export class CoinTray {
             }
         }
 
-
     }
 
     removeCoin(ctx){
@@ -96,28 +87,26 @@ export class CoinTray {
         let lastCoin=this.coins.pop();
         lastCoin.erase(ctx,this.bgColor);
         this.coinsPlayed++;
+
     }
 
     /**
      * Returns True if the Tray is empty, else False
      */
     isEmpty() {
-        
         return(this.coins.length==0);
     }
     
     highlight(ctx){
-
         this.drawLineAroundTray(ctx,gameColors.trayHighlightColor,globals.trayHighlightLineWidth);
-        
     }
 
     unhighlight(ctx){
         this.drawLineAroundTray(ctx,gameColors.gameBackgroundColor,globals.trayUnhighlightLineWidth);
-        
     }
     
     drawLineAroundTray(ctx,lineColor,lineWidth){
+
         let origStrokeStyle=ctx.strokeStyle;
         let origLineWidth=ctx.lineWidth;
 
@@ -127,11 +116,9 @@ export class CoinTray {
 
         ctx.strokeRect(this.topLeft, this.top, this.width, (this.squareSize*this.totalRows));
 
-
         // rever to the original properties
         ctx.strokeStyle = origStrokeStyle;
         ctx.lineWidth = origLineWidth;
-
         
     }
 }
