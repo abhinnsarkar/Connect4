@@ -78,7 +78,7 @@ const messages = {
 
 function resizeGame() {
 
-    var gameCanvas = document.getElementById('Canvas');
+    var gameCanvas = document.getElementById("Canvas");
     var widthToHeight = 5/2;
     
     var newCanvasWidth = window.innerWidth;
@@ -99,6 +99,9 @@ function resizeGame() {
     
     gameCanvas.style.marginTop = (-newCanvasHeight / 2) + 'px';
     gameCanvas.style.marginLeft = (-newCanvasWidth / 2) + 'px';
+
+    console.log(`top is ${gameCanvas.style.marginTop}`);
+    console.log(`left is ${gameCanvas.style.marginLeft}`);
     
     var gameScreen = document.getElementById('gameScreen');
     gameScreen.width = newCanvasWidth;
