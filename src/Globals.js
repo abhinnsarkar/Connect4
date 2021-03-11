@@ -2,7 +2,7 @@
  * Object capturing various colors
  * @const
  */
-export const colors = {
+ export const colors = {
 
   Red : '#FF0000',
   Green : '#228D38',
@@ -44,8 +44,10 @@ export const gameColors = {
 export const globals = {
   num_Of_Cols : 7,
   num_Of_Rows : 6,
+  // slotLineWidth : 10,
   slotLineWidth : window.innerWidth/250,
   trayHighlightLineWidth : 5,
   trayUnhighlightLineWidth : 7,
+  // winningSlotLineWidth : 20
   winningSlotLineWidth : window.innerWidth/125
 }

@@ -72,6 +72,36 @@ const messages = {
  
 }
 
+
+
+
+
+function resizeGame() {
+
+    var gameCanvas = document.getElementById("Canvas");
+    var widthToHeight = 5/2;
+    
+    var newCanvasWidth = window.innerWidth;
+    var newCanvasHeight = window.innerHeight;
+    
+    var newCanvasWidthToHeight = (newCanvasWidth / newCanvasHeight);
+    
+    if (newCanvasWidthToHeight > widthToHeight) {
+        // window width is too wide relative to desired game width
+        newCanvasWidth = newCanvasHeight * widthToHeight;
+        gameCanvas.style.height = newCanvasHeight + 'px';
+        gameCanvas.style.width = newCanvasWidth + 'px';
+    } else { // window height is too high relative to desired game height
+        newCanvasHeight = newCanvasWidth / widthToHeight;
+        gameCanvas.style.width = newCanvasWidth + 'px';
+        gameCanvas.style.height = newCanvasHeight + 'px';
+    }
+    
+    gameCanvas.style.marginTop = (-newCanvasHeight / 2) + 'px';
+    gameCanvas.style.marginLeft = (-newCanvasWidth / 2) + 'px';
+
+}
+
 // styling canvas with color and position
 function canvasStyling(){
     
@@ -79,6 +109,9 @@ function canvasStyling(){
     
     ctx.canvas.width = 0.99*window.innerWidth;
     ctx.canvas.height = 0.80*window.innerHeight;
+
+    console.log("width is " +ctx.canvas.width );
+    console.log("height is " +ctx.canvas.height );
     
 }
 
@@ -142,6 +175,9 @@ function setupEventHandlers() {
     hintBtn.addEventListener("mousedown", hintPressed);
     hintBtn.addEventListener("mouseup", hintReleased);
     
+    window.addEventListener('resize', resizeGame, false);
+    window.addEventListener('orientationchange', resizeGame, false);
+
 }
 
 
@@ -180,13 +216,13 @@ function createNewPlayerCoin() {
         color = firstColor;
         tray1.highlight(ctx);
         
-
     }
     else if(previousColor == gameColors.player1Color){ // means it is second players turn
 
         removeFromTray(ctx, tray1);
         color = gameColors.player2Color;
         tray2.highlight(ctx);
+
     }
 
     else{
@@ -194,6 +230,7 @@ function createNewPlayerCoin() {
         removeFromTray(ctx, tray2);
         color = gameColors.player1Color;
         tray1.highlight(ctx);
+
     }
 
     gameBoard.highlightPlayerCol(ctx,playerCoinCol);
@@ -211,12 +248,10 @@ function createNewPlayerCoin() {
     if (tray1.isEmpty() && tray2.isEmpty()) { // game is over since both the trays are empty
         tray1.unhighlight(ctx);
         tray2.unhighlight(ctx);
-        // showErrorBox(messages.gameBoardFull);
         showPopup(popups.errorBox,messages.gameBoardFull);
         
     }
 }
-
 
 /**
  * Removes one coin from the tray, and removes focus
@@ -507,4 +542,3 @@ function closePopup(popupId) {
     // enable all other controls
     enableMoving();
 }
-
