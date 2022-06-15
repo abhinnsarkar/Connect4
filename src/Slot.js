@@ -24,7 +24,7 @@ export class Slot{
 
   createInStyle(ctx,slotLineWidth,highlightColor) {
     
-    let originalWidth = ctx.lineWidth;
+    const originalWidth = ctx.lineWidth;
     ctx.lineWidth = slotLineWidth;
     if (this.margin==null) {
       this.margin = Math.floor(0.1 * this.size);
@@ -49,8 +49,8 @@ export class Slot{
     this.empty = false;
     this.coin = coin;
 
-    let newCenterX = this.left + (this.size/2);
-    let newCenterY = this.top + (this.size/2);
+    const newCenterX = this.left + (this.size/2);
+    const newCenterY = this.top + (this.size/2);
 
     this.coin.reposition(ctx, newCenterX, newCenterY, backgroundColor);
 

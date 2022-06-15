@@ -31,7 +31,7 @@ export class CoinTray {
         this.totalCols = totalCols;
 
         this.squareSize;
-        let totalCoins = this.totalRows * this.totalCols;
+        const totalCoins = this.totalRows * this.totalCols;
         this.bgColor = bgColor;
 
         this.coins = new Array(totalCoins);
@@ -52,8 +52,8 @@ export class CoinTray {
         // for that, you need to determine the size of each square
         // for that, you need to divide the coin tray into a rows x cols grid
 
-        let sqSizeBasedOnWidth = this.width / this.totalCols;
-        let sqSizeBasedOnHeight = this.height / this.totalRows;
+        const sqSizeBasedOnWidth = this.width / this.totalCols;
+        const sqSizeBasedOnHeight = this.height / this.totalRows;
 
         if (sqSizeBasedOnWidth > sqSizeBasedOnHeight) { // this means we need to base our square on Height (smaller of the two)
 
@@ -68,8 +68,8 @@ export class CoinTray {
 
             for (var col=0;col<this.totalCols;col++) {
 
-                let topLeft = this.topLeft+col*this.squareSize;
-                let top = this.top+row*this.squareSize;
+                const topLeft = this.topLeft+col*this.squareSize;
+                const top = this.top+row*this.squareSize;
 
                 this.coins[col+row*this.totalCols] = new Coin(topLeft+this.squareSize/2, top+this.squareSize/2, 0.8*this.squareSize/2, this.coinColor);
                 this.coins[col+row*this.totalCols].draw(ctx);
@@ -84,7 +84,7 @@ export class CoinTray {
         /**
          * @typedef {Coin}
          */
-        let lastCoin=this.coins.pop();
+        const lastCoin=this.coins.pop();
         lastCoin.erase(ctx,this.bgColor);
         this.coinsPlayed++;
 
@@ -107,8 +107,8 @@ export class CoinTray {
     
     drawLineAroundTray(ctx,lineColor,lineWidth){
 
-        let origStrokeStyle=ctx.strokeStyle;
-        let origLineWidth=ctx.lineWidth;
+        const origStrokeStyle=ctx.strokeStyle;
+        const origLineWidth=ctx.lineWidth;
 
         // set the properties for the hightlight
         ctx.strokeStyle = lineColor;
