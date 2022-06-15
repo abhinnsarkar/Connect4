@@ -103,13 +103,13 @@ export class GameBoard {
 
         
         const backgroundColor = gameColors.gameBackgroundColor;
-        const slotFound = false;
+        let slotFound = false;
         // /**
         //  * @type {Object}
         //  */
     
         var lastSlot = this.getLastSlot(ctx,col);
-        const lastSlotInThisColumn=lastSlot.emptySlot;
+        let lastSlotInThisColumn=lastSlot.emptySlot;
                
 
     
@@ -146,7 +146,7 @@ export class GameBoard {
      * @returns {boolean}
      */
     checkCoinsCondition(sideASlots,sideBSlots,actuallyPlayed=true){
-        const conditionMet=false;
+        let conditionMet=false;
         if (this.checkIfEnoughCoins(sideASlots.length,sideBSlots.length)) {
 
             conditionMet=true;
@@ -171,11 +171,11 @@ export class GameBoard {
         
         // convert to array index (base 0 arrays)
 
-        const rowIndex=physicalRow-1;
-        const colIndex=physicalCol-1;
+        let rowIndex=physicalRow-1;
+        let colIndex=physicalCol-1;
 
         var currSlot = this.columns[colIndex][rowIndex];
-        const currColor = currSlot.coin.color;
+        let currColor = currSlot.coin.color;
 
         this.winnerLogic(colIndex,rowIndex,currColor,true);
 
@@ -229,22 +229,22 @@ export class GameBoard {
         /* check left right winner */
         sideASlots = this.scanLeft(colIndex,rowIndex,color);
         sideBSlots = this.scanRight(colIndex,rowIndex,color);
-        const a=this.checkCoinsCondition(sideASlots,sideBSlots,actuallyPlayed);
+        let a=this.checkCoinsCondition(sideASlots,sideBSlots,actuallyPlayed);
 
         /* check above below winner */  
         sideASlots = this.scanBelow(colIndex,rowIndex,color);
         sideBSlots = this.scanAbove(colIndex,rowIndex,color);
-        const b=this.checkCoinsCondition(sideASlots,sideBSlots,actuallyPlayed);
+        let b=this.checkCoinsCondition(sideASlots,sideBSlots,actuallyPlayed);
         
         /* Diagonal 1 */  
         sideASlots = this.scanAboveRight(colIndex,rowIndex,color);
         sideBSlots = this.scanBelowLeft(colIndex,rowIndex,color);
-        const c=this.checkCoinsCondition(sideASlots,sideBSlots,actuallyPlayed);
+        let c=this.checkCoinsCondition(sideASlots,sideBSlots,actuallyPlayed);
 
         /* Diagonal 2 */  
         sideASlots = this.scanAboveLeft(colIndex,rowIndex,color);
         sideBSlots = this.scanBelowRight(colIndex,rowIndex,color);
-        const d=this.checkCoinsCondition(sideASlots,sideBSlots,actuallyPlayed);
+        let d=this.checkCoinsCondition(sideASlots,sideBSlots,actuallyPlayed);
         
         return (a||b||c||d)
         // if (this.winnerFound) {
@@ -264,15 +264,15 @@ export class GameBoard {
      */
     scanLeft(col, row, currColor) {
 
-        const matchCounter=0;
-        const keepScanning=true;        
-        const winningSlots=new Array();
+        let matchCounter=0;
+        let keepScanning=true;        
+        let winningSlots=new Array();
 
 
         while(keepScanning && col>0) {
 
             col--;
-            const leftSlot = this.columns[col][row];
+            let leftSlot = this.columns[col][row];
 
             if (leftSlot.isEmpty()) {
                 keepScanning=false;
@@ -305,16 +305,16 @@ export class GameBoard {
      */
     scanRight(col, row, currColor) {
 
-        const matchCounter=0;
-        const keepScanning=true;
-        const winningSlots=new Array();
+        let matchCounter=0;
+        let keepScanning=true;
+        let winningSlots=new Array();
         
         
 
         while(keepScanning && col<this.MAX_COLS-1) {
 
             col++;
-            const rightSlot = this.columns[col][row];
+            let rightSlot = this.columns[col][row];
 
             if (rightSlot.isEmpty()) {
                 keepScanning=false;
@@ -346,15 +346,15 @@ export class GameBoard {
      */
     scanAbove(col, row, currColor) {
 
-        const matchCounter=0;
-        const keepScanning=true;
-        const winningSlots=new Array();
+        let matchCounter=0;
+        let keepScanning=true;
+        let winningSlots=new Array();
         
 
         while(keepScanning && row>0) {
 
             row--;
-            const aboveSlot = this.columns[col][row];
+            let aboveSlot = this.columns[col][row];
 
             if (aboveSlot.isEmpty()) {
                 keepScanning=false;
@@ -387,15 +387,15 @@ export class GameBoard {
     scanBelow(col, row, currColor) {
         
 
-        const matchCounter=0;
-        const keepScanning=true;
-        const winningSlots=new Array();
+        let matchCounter=0;
+        let keepScanning=true;
+        let winningSlots=new Array();
         
 
         while(keepScanning && row<this.MAX_ROWS-1) {
 
             row++;
-            const belowSlot = this.columns[col][row];
+            let belowSlot = this.columns[col][row];
 
             if(row < this.MAX_ROWS){
                 if (belowSlot.isEmpty()) {
@@ -430,16 +430,16 @@ export class GameBoard {
      */
     scanAboveLeft(col, row, currColor) {
 
-        const matchCounter=0;
-        const keepScanning=true;
-        const winningSlots=new Array();
+        let matchCounter=0;
+        let keepScanning=true;
+        let winningSlots=new Array();
         
 
         while(keepScanning && row>0 && col>0) {
 
             row--;
             col--;
-            const aboveSlotDiagonal = this.columns[col][row];
+            let aboveSlotDiagonal = this.columns[col][row];
 
             if (aboveSlotDiagonal.isEmpty()) {
                 keepScanning=false;
@@ -471,16 +471,16 @@ export class GameBoard {
      */
     scanAboveRight(col, row, currColor) {
 
-        const matchCounter=0;
-        const keepScanning=true;
-        const winningSlots=new Array();
+        let matchCounter=0;
+        let keepScanning=true;
+        let winningSlots=new Array();
         
 
         while(keepScanning && row>0 && col<this.MAX_COLS-1) {
 
             row--;
             col++;
-            const aboveSlotDiagonal = this.columns[col][row];
+            let aboveSlotDiagonal = this.columns[col][row];
 
             if (aboveSlotDiagonal.isEmpty()) {
                 keepScanning=false;
@@ -512,15 +512,15 @@ export class GameBoard {
      */
     scanBelowLeft(col, row, currColor) {
 
-        const matchCounter=0;
-        const keepScanning=true;
-        const winningSlots=new Array();
+        let matchCounter=0;
+        let keepScanning=true;
+        let winningSlots=new Array();
 
         while(keepScanning && col>0 && row<this.MAX_ROWS-1) {
 
             row++;
             col--;
-            const belowSlotDiagonal = this.columns[col][row];
+            let belowSlotDiagonal = this.columns[col][row];
 
             if (belowSlotDiagonal.isEmpty()) {
                 keepScanning=false;
@@ -552,16 +552,16 @@ export class GameBoard {
      */
     scanBelowRight(col, row, currColor) {
 
-        const matchCounter=0;
-        const keepScanning=true;
-        const winningSlots=new Array();
+        let matchCounter=0;
+        let keepScanning=true;
+        let winningSlots=new Array();
 
         
         while(keepScanning && row<this.MAX_ROWS-1 && col<this.MAX_COLS-1) {
             
             row++;
             col++;
-            const belowSlotDiagonal = this.columns[col][row];
+            let belowSlotDiagonal = this.columns[col][row];
 
             if (belowSlotDiagonal.isEmpty()) {
                 keepScanning=false;
@@ -589,7 +589,7 @@ export class GameBoard {
         /**
          * @type {Array<Slot>}
          */
-        const currColumnSlots = this.columns[col];
+        let currColumnSlots = this.columns[col];
         currColumnSlots.forEach(slot => slot.highlight(ctx,globals.slotLineWidth,gameColors.colHighlightColor));
 
     }
@@ -599,7 +599,7 @@ export class GameBoard {
         /**
          * @type {Array<Slot>}
          */
-        const currColumnSlots = this.columns[col];
+        let currColumnSlots = this.columns[col];
         currColumnSlots.forEach(slot => slot.unhighlight(ctx));
         
     }
@@ -626,18 +626,18 @@ export class GameBoard {
         this.columns.forEach((column, indx) => {
             
             lastSlot = this.getLastSlot(ctx,indx+1);
-            const emptySlot = lastSlot.emptySlot;
+            let emptySlot = lastSlot.emptySlot;
             if (emptySlot==null) {
                 // do nothing
                 //its full
             }
             else {
 
-                const hlColor = gameColors.safeToPlayColor;
+                let hlColor = gameColors.safeToPlayColor;
                 
-                const otherPlayerWinPotential=this.rowAboveIsPotentialWinnerForOtherPlayer(ctx,lastSlot.physicalRow,lastSlot.physicalCol,currPlayerColor);    
-                const selfWinPotential=this.selfWinPotential(ctx,lastSlot.physicalRow,lastSlot.physicalCol,currPlayerColor);
-                const blockPotential = this.blockOtherPlayerWin(ctx,lastSlot.physicalRow,lastSlot.physicalCol,currPlayerColor);
+                let otherPlayerWinPotential=this.rowAboveIsPotentialWinnerForOtherPlayer(ctx,lastSlot.physicalRow,lastSlot.physicalCol,currPlayerColor);    
+                let selfWinPotential=this.selfWinPotential(ctx,lastSlot.physicalRow,lastSlot.physicalCol,currPlayerColor);
+                let blockPotential = this.blockOtherPlayerWin(ctx,lastSlot.physicalRow,lastSlot.physicalCol,currPlayerColor);
                 
                 if (selfWinPotential) {
                     hlColor=gameColors.winningColor;
@@ -662,7 +662,7 @@ export class GameBoard {
 
     blockOtherPlayerWin(ctx,physicalRow,physicalCol,currPlayerColor){
 
-        const otherPlayerColor='';
+        let otherPlayerColor;
 
         if(currPlayerColor == gameColors.player1Color){
             otherPlayerColor = gameColors.player2Color;
@@ -687,13 +687,13 @@ export class GameBoard {
      * @returns {boolean}
      */
     rowAboveIsPotentialWinnerForOtherPlayer(ctx,physicalRow,physicalCol,currPlayerColor) {
-        const potentialWinner=false;
+        let potentialWinner=false;
 
         if (physicalRow > 1) {
-            const abovePhysicalRow=physicalRow-1;
+            let abovePhysicalRow=physicalRow-1;
 
-            const colIndex = physicalCol-1;
-            const rowIndex = abovePhysicalRow-1;
+            let colIndex = physicalCol-1;
+            let rowIndex = abovePhysicalRow-1;
     
             var currColor = currPlayerColor;
             var aboveRowColor,aboveRowWinnerFound;
@@ -729,10 +729,10 @@ export class GameBoard {
      */
     selfWinPotential(ctx,physicalRow,physicalCol,currPlayerColor) {
 
-        const potentialWinner=false;
+        let potentialWinner=false;
         
-        const colIndex = physicalCol-1;
-        const rowIndex = physicalRow-1;
+        let colIndex = physicalCol-1;
+        let rowIndex = physicalRow-1;
 
         if(this.winnerLogic(colIndex,rowIndex,currPlayerColor,false)){
             potentialWinner = true;
@@ -759,7 +759,7 @@ export class GameBoard {
     hideHint(ctx){
         
         this.columns.forEach((column, indx) => {
-            const emptySlot=this.getLastSlot(ctx,indx+1).emptySlot;
+            let emptySlot=this.getLastSlot(ctx,indx+1).emptySlot;
             if (emptySlot==null) {
                 // do nothing
             }
@@ -780,7 +780,7 @@ export class GameBoard {
      */
      getLastSlot(ctx,physicalCol){
         
-        const col=physicalCol-1; 
+        let col=physicalCol-1; 
 
         //given the column, start checking from the bottom slot 
         //if bottom slot is full, check the slot above
@@ -788,7 +788,7 @@ export class GameBoard {
         //if all slots are full in that column, return false
         //if empty slot is found, fill it with the given coin
 
-        const column = this.columns[col];
+        let column = this.columns[col];
         var row,physicalRow;
 
         var slotFound = false;

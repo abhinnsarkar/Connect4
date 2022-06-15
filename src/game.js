@@ -4,10 +4,10 @@ import { Coin } from './Coin.js';
 import { CoinTray } from './CoinTray.js';
 import { playVictoryTone , playErrorTone , playCoinSound } from './Sounds.js';
 var onlyHintsAreEnabled = false;
-const canvas=document.getElementById("gameScreen");
-const ctx=canvas.getContext("2d");
+let canvas=document.getElementById("gameScreen");
+let ctx=canvas.getContext("2d");
 
-const gameBoard = new GameBoard(ctx);
+let gameBoard = new GameBoard(ctx);
 const gameTopMarginPct = 12.5;
 const gameLeftMarginPct = 20;
 const gameRightMarginPct = gameLeftMarginPct;
@@ -15,7 +15,7 @@ const gameBottomMarginPct = 0;
 var gameTopMarginPx, gameBottomMarginPx, gameLeftMarginPx, gameRightMarginPx, gameBoardWidth, gameBoardHeight;
 
 var playerCoin , playerCoinCol;
-const firstColor = gameColors.player1Color;
+let firstColor = gameColors.player1Color;
 var previousColor , color;
 /**
  * @type {Array<string>}
@@ -27,12 +27,12 @@ var controlsEnabled=true;
 /**
  * The mapping between the Keys, the Event, and the Function
  */
-const key_function_map = new Map();
+let key_function_map = new Map();
 key_function_map["ARROWLEFT" + "PRESSED"]=leftClicked;
 key_function_map["ARROWRIGHT" + "PRESSED"]=rightClicked;
 key_function_map["ARROWDOWN" + "PRESSED"]=playClicked;
-// key_function_map["H" + "PRESSED"]=hintPressed;
-// key_function_map["H" + "RELEASED"]=hintReleased;
+key_function_map["H" + "PRESSED"]=hintPressed;
+key_function_map["H" + "RELEASED"]=hintReleased;
 
 var leftArrow,rightArrow,playArrow;
 
@@ -138,8 +138,8 @@ function gameBoardResizing() {
  */
 function coinTrays(){
 
-    const coinTrayWidth = gameLeftMarginPx;
-    const coinTrayHeight = canvas.height/3;
+    let coinTrayWidth = gameLeftMarginPx;
+    let coinTrayHeight = canvas.height/3;
 
     tray1 = new CoinTray(gameLeftMarginPx+(gameBoard.sqSize*7)+gameBoard.pad,gameTopMarginPx,coinTrayWidth,coinTrayHeight,gameColors.player1Color, gameColors.gridColor, gameColors.gameTrayBgColor1,3,7);
     tray1.draw(ctx);
@@ -163,7 +163,6 @@ function setupEventHandlers() {
     rightArrow.addEventListener("click",rightClicked);
 
     playArrow = document.getElementById("playArrow");
-    playArrow.width = window.innerWidth
     playArrow.addEventListener("click",playClicked);
     
     popUp = document.getElementsByClassName("closeErrorBox")[0];
@@ -172,12 +171,12 @@ function setupEventHandlers() {
     }
     );
 
-    // hintBtn = document.getElementById("hintBtn");
-    // hintBtn.addEventListener("mousedown", hintPressed);
-    // hintBtn.addEventListener("mouseup", hintReleased);
+    hintBtn = document.getElementById("hintBtn");
+    hintBtn.addEventListener("mousedown", hintPressed);
+    hintBtn.addEventListener("mouseup", hintReleased);
     
-    // window.addEventListener('resize', resizeGame, false);
-    // window.addEventListener('orientationchange', resizeGame, false);
+    window.addEventListener('resize', resizeGame, false);
+    window.addEventListener('orientationchange', resizeGame, false);
 
 }
 
@@ -238,8 +237,8 @@ function createNewPlayerCoin() {
     
     previousColor = color;
 
-    const playerCoinInitX = canvas.width/2;
-    const playerCoinInitY = gameTopMarginPx/2;
+    let playerCoinInitX = canvas.width/2;
+    let playerCoinInitY = gameTopMarginPx/2;
 
     playerCoin = new Coin(playerCoinInitX,playerCoinInitY,20,color);
 
@@ -284,8 +283,8 @@ function onkey(event, typeOfEvent) {
         /**
          * @type {string}
          */
-        const keyPressed = event.key.toUpperCase();
-        const func=key_function_map[keyPressed + typeOfEvent];
+        let keyPressed = event.key.toUpperCase();
+        let func=key_function_map[keyPressed + typeOfEvent];
         if(!(func==null)) {
             func();
         }
@@ -492,10 +491,10 @@ function hintReleased(){
 }
 function removeControls(){
     
-    const elementsToRemove=['hintBtn', 'leftArrow', 'rightArrow', 'playArrow', 'newGame'];
+    let elementsToRemove=['hintBtn', 'leftArrow', 'rightArrow', 'playArrow', 'newGame'];
 
     elementsToRemove.forEach(value => {
-        const btn = document.getElementById(value);
+        let btn = document.getElementById(value);
         btn.parentNode.removeChild(btn);
     });
        
@@ -511,7 +510,7 @@ function removeControls(){
 function showPopup(popupId, message=null) {
 
     // show the popup
-    const popup=document.getElementById(popupId);
+    let popup=document.getElementById(popupId);
 
     
     if(!(popupId == popups.hintBox)){
@@ -525,8 +524,8 @@ function showPopup(popupId, message=null) {
         // do nothing
     }
     else {
-        const popupMessageId=popupId+"Message";
-        const popupMessage=document.getElementById(popupMessageId);
+        let popupMessageId=popupId+"Message";
+        let popupMessage=document.getElementById(popupMessageId);
         popupMessage.innerHTML=message;
     }    
 
@@ -537,7 +536,7 @@ function showPopup(popupId, message=null) {
 function closePopup(popupId) {
 
     // close the popup
-    const popup=document.getElementById(popupId);
+    let popup=document.getElementById(popupId);
     popup.style.display="none";
 
     // enable all other controls

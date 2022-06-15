@@ -43,8 +43,8 @@ export class Coin {
   }
 
   reposition(ctx, newX, newY, backgroundColor) {
-      const moveByX = newX - this.x;
-      const moveByY = newY - this.y;
+      let moveByX = newX - this.x;
+      let moveByY = newY - this.y;
 
       this.move(ctx, moveByX, moveByY, backgroundColor)
   }
