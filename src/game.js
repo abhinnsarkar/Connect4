@@ -31,8 +31,8 @@ let key_function_map = new Map();
 key_function_map["ARROWLEFT" + "PRESSED"]=leftClicked;
 key_function_map["ARROWRIGHT" + "PRESSED"]=rightClicked;
 key_function_map["ARROWDOWN" + "PRESSED"]=playClicked;
-key_function_map["H" + "PRESSED"]=hintPressed;
-key_function_map["H" + "RELEASED"]=hintReleased;
+// key_function_map["H" + "PRESSED"]=hintPressed;
+// key_function_map["H" + "RELEASED"]=hintReleased;
 
 var leftArrow,rightArrow,playArrow;
 
@@ -163,6 +163,7 @@ function setupEventHandlers() {
     rightArrow.addEventListener("click",rightClicked);
 
     playArrow = document.getElementById("playArrow");
+    playArrow.width = window.innerWidth
     playArrow.addEventListener("click",playClicked);
     
     popUp = document.getElementsByClassName("closeErrorBox")[0];
@@ -171,12 +172,12 @@ function setupEventHandlers() {
     }
     );
 
-    hintBtn = document.getElementById("hintBtn");
-    hintBtn.addEventListener("mousedown", hintPressed);
-    hintBtn.addEventListener("mouseup", hintReleased);
+    // hintBtn = document.getElementById("hintBtn");
+    // hintBtn.addEventListener("mousedown", hintPressed);
+    // hintBtn.addEventListener("mouseup", hintReleased);
     
-    window.addEventListener('resize', resizeGame, false);
-    window.addEventListener('orientationchange', resizeGame, false);
+    // window.addEventListener('resize', resizeGame, false);
+    // window.addEventListener('orientationchange', resizeGame, false);
 
 }
 
