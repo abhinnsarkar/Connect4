@@ -662,7 +662,7 @@ export class GameBoard {
 
     blockOtherPlayerWin(ctx,physicalRow,physicalCol,currPlayerColor){
 
-        const otherPlayerColor;
+        const otherPlayerColor='';
 
         if(currPlayerColor == gameColors.player1Color){
             otherPlayerColor = gameColors.player2Color;
